@@ -11,6 +11,9 @@ class abstract_melonOrder():
         total = (1 + self.tax) * self.qty * base_price
         return total
 
+    def mark_shipp(self):
+        self.shipped = True
+
 
 class DomesticMelonOrder(abstract_melonOrder):
     """A melon order within the USA."""
@@ -24,12 +27,6 @@ class DomesticMelonOrder(abstract_melonOrder):
         self.order_type = "domestic"
         self.tax = 0.08
 
-    def mark_shipped(self):
-        """Record the fact than an order has been shipped."""
-
-        self.shipped = True
-
-
 class InternationalMelonOrder(abstract_melonOrder):
     """An international (non-US) melon order."""
 
@@ -42,12 +39,7 @@ class InternationalMelonOrder(abstract_melonOrder):
         self.shipped = False
         self.order_type = "international"
         self.tax = 0.17
-
-    def mark_shipped(self):
-        """Record the fact than an order has been shipped."""
-
-        self.shipped = True
-
+ 
     def get_country_code(self):
         """Return the country code."""
 
