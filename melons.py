@@ -8,7 +8,13 @@ class abstract_melonOrder():
 
     def get_total(self):
         base_price = 5
+        if self.species == 'Christmas':
+            base_price *= 1.5
+        if self.qty < 10 and self.order_type == "international":
+            base_price += 3
+
         total = (1 + self.tax) * self.qty * base_price
+
         return total
 
     def mark_shipp(self):
