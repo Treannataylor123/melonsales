@@ -12,13 +12,27 @@ class abstract_melonOrder():
             base_price *= 1.5
         if self.qty < 10 and self.order_type == "international":
             base_price += 3
-
         total = (1 + self.tax) * self.qty * base_price
 
         return total
 
     def mark_shipp(self):
         self.shipped = True
+
+
+class GovernmentMelonOrder(abstract_melonOrder):
+    def __init__(self, species, qty):
+        self.species = species
+        self.qty = qty
+        self.passed_inspection = False
+        self.shipped = False
+        self.order_type = "government"
+        self.tax = 0.00
+
+    def mark_inspection(self, passed):
+        #self.passed= se
+        self.passed_inspection = passed
+        return self.passed_inspection
 
 
 class DomesticMelonOrder(abstract_melonOrder):
@@ -32,6 +46,7 @@ class DomesticMelonOrder(abstract_melonOrder):
         self.shipped = False
         self.order_type = "domestic"
         self.tax = 0.08
+
 
 class InternationalMelonOrder(abstract_melonOrder):
     """An international (non-US) melon order."""
