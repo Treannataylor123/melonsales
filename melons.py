@@ -1,19 +1,24 @@
 """Classes for melon orders."""
 
+import random
+
 
 class abstract_melonOrder():
     def __init__(self, species, qty):
         self.species = species
-        self.qty = qty
+        self.qty = qty 
 
-    def get_total(self):
-        base_price = 5
+    def get_base_price(self):
+        base_price = random.randint(5, 9)
         if self.species == 'Christmas':
             base_price *= 1.5
         if self.qty < 10 and self.order_type == "international":
             base_price += 3
-        total = (1 + self.tax) * self.qty * base_price
+        return base_price
 
+    def get_total(self):
+        base_price = self.get_base_price()
+        total = (1 + self.tax) * self.qty * base_price
         return total
 
     def mark_shipp(self):
@@ -30,7 +35,6 @@ class GovernmentMelonOrder(abstract_melonOrder):
         self.tax = 0.00
 
     def mark_inspection(self, passed):
-        #self.passed= se
         self.passed_inspection = passed
         return self.passed_inspection
 
